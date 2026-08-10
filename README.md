@@ -2,7 +2,30 @@
 
 > **AI Seekho Assignment 4**: *"Solve a Real Problem in Pakistan with Next.js"*
 
-**Arz.** is an interactive climate-awareness landing page designed specifically for Pakistan. It highlights the real human and economic costs of climate change using verified data from global and national institutions, outlines practical community solutions, and provides a real-time lead capture form for community participation backed by Supabase.
+**Arz.** is an interactive, state-of-the-art climate-awareness landing page designed specifically for Pakistan. It highlights the real human and economic costs of climate change using verified data from global and national institutions, outlines practical community solutions, and provides a real-time lead capture form for community participation backed by Supabase.
+
+---
+
+## 🤖 AI Development & Prompt Engineering
+
+- **Code Implementation**: The application codebase, React components, Next.js API routes, custom Tailwind styling, SVG animations, and database integrations were **completely built by Antigravity AI**.
+- **Prompt Engineering**: The professional design specification, component architecture breakdown, and system requirements were crafted through **meta prompting with Claude**.
+
+---
+
+## 📸 Screenshots & Visual Preview
+
+### 1. Hero & Animated Globe Section
+![Arz. Hero Section](./public/screenshots/hero.png)
+
+### 2. 01 — The Danger Section (3D Tilt Cards)
+![The Danger Section](./public/screenshots/danger.png)
+
+### 3. 02 — Realistic Solutions for Pakistan
+![Solutions Section](./public/screenshots/solutions.png)
+
+### 4. 03 — Join the Community Form
+![Join Community Section](./public/screenshots/join.png)
 
 ---
 
@@ -33,7 +56,7 @@ Pakistan contributes less than 1% of global greenhouse emissions, yet remains on
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/mally-pk/arz-climate-pk.git
+git clone https://github.com/MANR255926/arz-climate-pk.git
 cd arz-climate-pk
 ```
 
