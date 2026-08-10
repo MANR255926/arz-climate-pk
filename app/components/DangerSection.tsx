@@ -33,15 +33,17 @@ function DangerCard({
 
   return (
     <div
-      className={`glass-panel rounded-2xl p-7 card-tilt ${hoverStyle} cursor-default`}
+      className={`glass-panel rounded-2xl p-7 card-tilt ${hoverStyle} cursor-default flex flex-col justify-between h-full`}
     >
-      <span className="text-3xl mb-4 block" role="img" aria-label={title}>
-        {icon}
-      </span>
-      <h3 className="font-['Space_Grotesk'] text-[17px] font-medium text-[#f2f0e8] mb-2.5">
-        {title}
-      </h3>
-      <p className="text-sm text-[#a9b3ac] leading-relaxed">{description}</p>
+      <div>
+        <span className="text-3xl mb-4 block" role="img" aria-label={title}>
+          {icon}
+        </span>
+        <h3 className="font-['Space_Grotesk'] text-[17px] font-medium text-[#f2f0e8] mb-2.5">
+          {title}
+        </h3>
+        <p className="text-sm text-[#a9b3ac] leading-relaxed">{description}</p>
+      </div>
       <span className={`font-mono text-[11px] ${tagColor} mt-4 block`}>
         {tag}
       </span>
@@ -51,7 +53,7 @@ function DangerCard({
 
 export default function DangerSection() {
   return (
-    <section className="py-32 px-6 max-w-[1100px] mx-auto relative z-10" id="danger">
+    <section className="py-24 px-6 max-w-[1100px] mx-auto relative z-10" id="danger">
       <div className="text-center mb-16">
         <div className="font-mono text-xs tracking-[0.12em] uppercase text-[#ffb088]">
           01 — Why it matters here
@@ -61,7 +63,7 @@ export default function DangerSection() {
         </h2>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-45 [perspective:1000px] gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 [perspective:1000px]">
         <DangerCard
           icon="🌊"
           title="Floods"

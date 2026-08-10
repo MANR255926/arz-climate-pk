@@ -33,15 +33,17 @@ function SolutionCard({
 
   return (
     <div
-      className={`glass-panel rounded-2xl p-7 card-tilt ${hoverStyle} cursor-default`}
+      className={`glass-panel rounded-2xl p-7 card-tilt ${hoverStyle} cursor-default flex flex-col justify-between h-full`}
     >
-      <span className="text-3xl mb-4 block" role="img" aria-label={title}>
-        {icon}
-      </span>
-      <h3 className="font-['Space_Grotesk'] text-[17px] font-medium text-[#f2f0e8] mb-2.5">
-        {title}
-      </h3>
-      <p className="text-sm text-[#a9b3ac] leading-relaxed">{description}</p>
+      <div>
+        <span className="text-3xl mb-4 block" role="img" aria-label={title}>
+          {icon}
+        </span>
+        <h3 className="font-['Space_Grotesk'] text-[17px] font-medium text-[#f2f0e8] mb-2.5">
+          {title}
+        </h3>
+        <p className="text-sm text-[#a9b3ac] leading-relaxed">{description}</p>
+      </div>
       <span className={`font-mono text-[11px] ${tagColor} mt-4 block`}>
         {tag}
       </span>

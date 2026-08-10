@@ -28,6 +28,9 @@ export default function Globe() {
       }
     };
 
+    // Run once on mount to set initial offset if page is already scrolled
+    handleScroll();
+
     window.addEventListener("scroll", handleScroll, { passive: true });
 
     return () => {
@@ -38,7 +41,8 @@ export default function Globe() {
   return (
     <svg
       ref={globeRef}
-      className="bg-globe fixed -top-[4vh] left-1/2 w-[min(85vw,860px)] h-[min(85vw,860px)] z-0 opacity-85 pointer-events-none -translate-x-1/2 will-change-transform"
+      className="bg-globe fixed -top-[4vh] left-1/2 w-[min(85vw,860px)] h-[min(85vw,860px)] z-0 opacity-85 pointer-events-none will-change-transform"
+      style={{ transform: "translate(-50%, 0px)" }}
       viewBox="0 0 400 400"
       xmlns="http://www.w3.org/2000/svg"
       aria-hidden="true"
