@@ -1,7 +1,7 @@
 # Arz. — Pakistani Climate Awareness Platform
 
 > 🌐 **Live Website**: [https://arz-climate-pk.netlify.app/](https://arz-climate-pk.netlify.app/)  
-> 🎓 **AI Seekho Assignment 4**: *"Solve a Real Problem in Pakistan with Next.js"*
+> 🎓 **AI Seekho Assignment 4**: *"Solve a Real Problem in Pakistan with Next.js"* https://github.com/MANR255926/AI-Seekho-2026
 
 **Arz.** is an interactive, state-of-the-art climate-awareness landing page designed specifically for Pakistan. It highlights the real human and economic costs of climate change using verified data from global and national institutions, outlines practical community solutions, and provides a real-time lead capture form for community participation backed by Supabase.
 
