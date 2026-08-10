@@ -1,26 +1,162 @@
 @import "tailwindcss";
 
+@theme {
+  --font-space: var(--font-space-grotesk), sans-serif;
+  --font-mono: var(--font-ibm-plex-mono), monospace;
+  --font-sans: var(--font-inter), sans-serif;
+
+  --color-arz-bg: #0a1210;
+  --color-arz-panel: rgba(255, 255, 255, 0.05);
+  --color-arz-border: rgba(255, 255, 255, 0.1);
+  --color-arz-text-hi: #f2f0e8;
+  --color-arz-text-mid: #a9b3ac;
+  --color-arz-text-dim: #6c766f;
+  --color-arz-amber: #ff6a2b;
+  --color-arz-amber-soft: #ffb088;
+  --color-arz-blue: #4f9ac9;
+  --color-arz-blue-soft: #a9d3ea;
+  --color-arz-khaki: #c9a876;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg: #0a1210;
+  --panel: rgba(255, 255, 255, 0.05);
+  --panel-border: rgba(255, 255, 255, 0.1);
+  --text-hi: #f2f0e8;
+  --text-mid: #a9b3ac;
+  --text-dim: #6c766f;
+  --amber: #ff6a2b;
+  --amber-soft: #ffb088;
+  --blue: #4f9ac9;
+  --blue-soft: #a9d3ea;
+  --khaki: #c9a876;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* Animations */
+.globe-spin {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: spin 130s linear infinite;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+.clouds-spin {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: spinRev 190s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes spinRev {
+  from { transform: rotate(360deg); }
+  to { transform: rotate(0deg); }
+}
+
+.crack {
+  filter: drop-shadow(0 0 3px rgba(255, 106, 43, 0.9)) drop-shadow(0 0 9px rgba(255, 106, 43, 0.55));
+}
+
+.crack-pulse {
+  animation: crackPulse 3.4s ease-in-out infinite;
+}
+
+@keyframes crackPulse {
+  0%, 100% { opacity: 0.85; }
+  50% { opacity: 1; }
+}
+
+.ember {
+  animation: emberFloat 6s ease-in-out infinite;
+}
+
+@keyframes emberFloat {
+  0%, 100% { transform: translateY(0); opacity: 0.5; }
+  50% { transform: translateY(-14px); opacity: 1; }
+}
+
+.bg-vignette {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: radial-gradient(ellipse 620px 420px at 50% 42%, rgba(10,18,16,0.55), transparent 65%),
+              linear-gradient(180deg, rgba(10,18,16,0.1) 0%, rgba(10,18,16,0.5) 55%, rgba(10,18,16,0.92) 100%);
+}
+
+.noise {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-up-1 { animation: fadeUp 0.8s ease forwards 0.1s; opacity: 0; }
+.animate-fade-up-2 { animation: fadeUp 0.9s ease forwards 0.25s; opacity: 0; }
+.animate-fade-up-3 { animation: fadeUp 0.9s ease forwards 0.45s; opacity: 0; }
+.animate-fade-up-4 { animation: fadeUp 1s ease forwards 0.7s; opacity: 0; }
+.animate-fade-up-5 { animation: fadeUp 1s ease forwards 1s; opacity: 0; }
+
+@keyframes drop {
+  0% { transform: scaleY(0); transform-origin: top; }
+  50% { transform: scaleY(1); transform-origin: top; }
+  51% { transform-origin: bottom; }
+  100% { transform: scaleY(0); transform-origin: bottom; }
+}
+
+.animate-drop {
+  animation: drop 1.6s ease-in-out infinite;
+}
+
+@keyframes floatGlow {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(30px, 40px); }
+}
+
+.animate-float-glow {
+  animation: floatGlow 8s ease-in-out infinite;
+}
+
+/* Glass panel styling */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(4px);
+}
+
+/* 3D tilt cards */
+.card-tilt {
+  transform-style: preserve-3d;
+  transition: transform 0.25s ease, border-color 0.25s ease, background-color 0.25s ease;
+}
+.card-tilt:hover {
+  transform: translateY(-6px) rotateX(4deg);
+}
+
+/* Prefers Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .globe-spin,
+  .clouds-spin,
+  .crack-pulse,
+  .ember,
+  .animate-drop,
+  .animate-float-glow,
+  .animate-fade-up-1,
+  .animate-fade-up-2,
+  .animate-fade-up-3,
+  .animate-fade-up-4,
+  .animate-fade-up-5 {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
   }
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
 }
