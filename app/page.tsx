@@ -7,6 +7,7 @@ import SourcesSection from "./components/SourcesSection";
 import JoinCommunity from "./components/JoinCommunity";
 import Footer from "./components/Footer";
 
+// Arz. Climate Data Platform — verified live release
 export default function Home() {
   return (
     <main className="relative min-h-screen">
