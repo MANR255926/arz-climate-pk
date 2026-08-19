@@ -2,6 +2,73 @@
 
 import React, { useState } from "react";
 
+interface HourglassParticle {
+  id: number;
+  top: string;
+  left: string;
+  sizeClass: string;
+  opacity: number;
+  animationDelay: string;
+  animationDuration: string;
+  isAnimated: boolean;
+  transform: string;
+}
+
+// Procedurally generate a deterministic starry field of hourglasses with natural variation and gaps
+function generateHourglassField(count = 32, seed = 71823): HourglassParticle[] {
+  let s = seed;
+  const pseudoRandom = () => {
+    s = (s * 16807) % 2147483647;
+    return (s - 1) / 2147483646;
+  };
+
+  const sizes = [
+    "text-[10px]",
+    "text-xs",
+    "text-sm",
+    "text-base",
+    "text-lg",
+    "text-xl",
+    "text-2xl",
+  ];
+
+  const particles: HourglassParticle[] = [];
+
+  for (let i = 0; i < count; i++) {
+    // Generate organic 2D spatial distribution across full section with natural clustering & gaps
+    const rx = pseudoRandom();
+    const ry = pseudoRandom();
+
+    // Map coordinates to section margins [2.5% .. 96%]
+    const leftVal = (2.5 + rx * 93.5).toFixed(1);
+    const topVal = (3.5 + ry * 92.5).toFixed(1);
+
+    const sizeIndex = Math.floor(pseudoRandom() * sizes.length);
+    const opacityVal = Number((0.08 + pseudoRandom() * 0.18).toFixed(2));
+    const delayVal = (pseudoRandom() * 6).toFixed(1);
+    const durationVal = (5.5 + pseudoRandom() * 2.5).toFixed(1);
+    const isAnimated = i % 2 === 0;
+    const initialRot = Math.floor(pseudoRandom() * 32 - 16);
+
+    particles.push({
+      id: i,
+      left: `${leftVal}%`,
+      top: `${topVal}%`,
+      sizeClass: sizes[sizeIndex],
+      opacity: opacityVal,
+      animationDelay: `${delayVal}s`,
+      animationDuration: `${durationVal}s`,
+      isAnimated,
+      transform: `rotate(${initialRot}deg)`,
+    });
+  }
+
+  return particles;
+}
+
+// Deterministically generated once on module load
+const hourglassField = generateHourglassField(32, 71823);
+
 export default function JoinCommunity() {
   const [formData, setFormData] = useState({
     name: "",
@@ -83,49 +150,30 @@ export default function JoinCommunity() {
       {/* Background glow accent */}
       <div className="absolute w-[400px] h-[400px] rounded-full bg-[radial-gradient(circle,rgba(255,106,43,0.25),transparent_70%)] -top-[150px] -left-[100px] pointer-events-none animate-float-glow" />
 
-      {/* Decorative background floating hourglasses */}
-      <span
-        className="absolute top-6 left-8 text-sm opacity-25 hourglass-float pointer-events-none select-none"
-        style={{ animationDelay: "0s" }}
+      {/* Procedurally generated field of decorative background hourglasses */}
+      <div
+        className="absolute inset-0 overflow-hidden pointer-events-none select-none z-0"
         aria-hidden="true"
       >
-        ⌛
-      </span>
-      <span
-        className="absolute top-10 right-10 text-base opacity-20 hourglass-float pointer-events-none select-none"
-        style={{ animationDelay: "1.2s" }}
-        aria-hidden="true"
-      >
-        ⌛
-      </span>
-      <span
-        className="absolute top-1/2 -translate-y-1/2 left-6 text-xs opacity-20 hourglass-float pointer-events-none select-none hidden sm:block"
-        style={{ animationDelay: "2.4s" }}
-        aria-hidden="true"
-      >
-        ⌛
-      </span>
-      <span
-        className="absolute top-1/2 -translate-y-1/2 right-6 text-sm opacity-20 hourglass-float pointer-events-none select-none hidden sm:block"
-        style={{ animationDelay: "3.6s" }}
-        aria-hidden="true"
-      >
-        ⌛
-      </span>
-      <span
-        className="absolute bottom-8 left-12 text-base opacity-20 hourglass-float pointer-events-none select-none"
-        style={{ animationDelay: "0.8s" }}
-        aria-hidden="true"
-      >
-        ⌛
-      </span>
-      <span
-        className="absolute bottom-7 right-14 text-xs opacity-25 hourglass-float pointer-events-none select-none"
-        style={{ animationDelay: "2.0s" }}
-        aria-hidden="true"
-      >
-        ⌛
-      </span>
+        {hourglassField.map((item) => (
+          <span
+            key={item.id}
+            className={`absolute ${item.sizeClass} ${
+              item.isAnimated ? "hourglass-float" : ""
+            }`}
+            style={{
+              top: item.top,
+              left: item.left,
+              opacity: item.opacity,
+              animationDelay: item.isAnimated ? item.animationDelay : undefined,
+              animationDuration: item.isAnimated ? item.animationDuration : undefined,
+              transform: item.transform,
+            }}
+          >
+            ⌛
+          </span>
+        ))}
+      </div>
 
       <div className="relative z-10 max-w-2xl mx-auto">
         <h2 className="font-['Space_Grotesk'] font-bold text-3xl sm:text-4xl lg:text-[40px] tracking-tight text-[#f2f0e8]">
