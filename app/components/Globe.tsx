@@ -21,7 +21,7 @@ export default function Globe() {
         window.requestAnimationFrame(() => {
           if (globeRef.current) {
             const offset = window.scrollY * 0.28;
-            globeRef.current.style.transform = `translate(-50%, ${offset}px)`;
+            globeRef.current.style.transform = `translate3d(-50%, ${offset}px, 0)`;
           }
           ticking = false;
         });
@@ -42,12 +42,16 @@ export default function Globe() {
       observer = new IntersectionObserver(
         (entries) => {
           const entry = entries[0];
-          setIsDangerInView(entry.isIntersecting);
+          if (entry) {
+            setIsDangerInView((prev) =>
+              prev !== entry.isIntersecting ? entry.isIntersecting : prev
+            );
+          }
         },
         {
           root: null,
           rootMargin: "0px 0px -15% 0px",
-          threshold: [0, 0.1, 0.25],
+          threshold: [0, 0.15, 0.3],
         }
       );
       observer.observe(dangerEl);
@@ -67,7 +71,7 @@ export default function Globe() {
       className={`bg-globe fixed -top-[4vh] left-1/2 w-[min(85vw,860px)] h-[min(85vw,860px)] z-0 opacity-85 pointer-events-none will-change-transform transition-[filter] duration-700 ${
         isDangerInView ? "globe-danger-active" : ""
       }`}
-      style={{ transform: "translate(-50%, 0px)" }}
+      style={{ transform: "translate3d(-50%, 0px, 0)" }}
       viewBox="0 0 400 400"
       xmlns="http://www.w3.org/2000/svg"
       aria-hidden="true"
@@ -93,12 +97,11 @@ export default function Globe() {
           <stop offset="94%" stopColor="#5db3d8" stopOpacity="0.28" />
           <stop offset="100%" stopColor="#5db3d8" stopOpacity="0" />
         </radialGradient>
-        <filter id="soft">
-          <feGaussianBlur stdDeviation="2.2" />
-        </filter>
-        <filter id="softer">
-          <feGaussianBlur stdDeviation="5" />
-        </filter>
+        <radialGradient id="cloudGlow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stopColor="#ffffff" stopOpacity="0.11" />
+          <stop offset="65%" stopColor="#ffffff" stopOpacity="0.05" />
+          <stop offset="100%" stopColor="#ffffff" stopOpacity="0" />
+        </radialGradient>
         <clipPath id="globeClip">
           <circle cx="200" cy="200" r="178" />
         </clipPath>
@@ -227,9 +230,8 @@ export default function Globe() {
             d="M85 145 Q110 175 100 210 Q92 240 118 268"
             fill="none"
             stroke="#ff9a5c"
-            strokeWidth="0.6"
-            opacity="0.6"
-            filter="url(#soft)"
+            strokeWidth="1.2"
+            opacity="0.35"
           />
         </g>
 
@@ -239,45 +241,35 @@ export default function Globe() {
             cy="120"
             rx="46"
             ry="14"
-            fill="#ffffff"
-            opacity="0.10"
-            filter="url(#softer)"
+            fill="url(#cloudGlow)"
           />
           <ellipse
             cx="260"
             cy="160"
             rx="60"
             ry="16"
-            fill="#ffffff"
-            opacity="0.08"
-            filter="url(#softer)"
+            fill="url(#cloudGlow)"
           />
           <ellipse
             cx="110"
             cy="260"
             rx="50"
             ry="13"
-            fill="#ffffff"
-            opacity="0.09"
-            filter="url(#softer)"
+            fill="url(#cloudGlow)"
           />
           <ellipse
             cx="290"
             cy="280"
             rx="40"
             ry="12"
-            fill="#ffffff"
-            opacity="0.07"
-            filter="url(#softer)"
+            fill="url(#cloudGlow)"
           />
           <ellipse
             cx="200"
             cy="70"
             rx="55"
             ry="11"
-            fill="#ffffff"
-            opacity="0.06"
-            filter="url(#softer)"
+            fill="url(#cloudGlow)"
           />
         </g>
       </g>
@@ -301,7 +293,6 @@ export default function Globe() {
         stroke="#5db3d8"
         strokeOpacity="0.18"
         strokeWidth="2"
-        filter="url(#soft)"
       />
 
       <circle

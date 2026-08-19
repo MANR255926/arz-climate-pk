@@ -83,6 +83,50 @@ export default function JoinCommunity() {
       {/* Background glow accent */}
       <div className="absolute w-[400px] h-[400px] rounded-full bg-[radial-gradient(circle,rgba(255,106,43,0.25),transparent_70%)] -top-[150px] -left-[100px] pointer-events-none animate-float-glow" />
 
+      {/* Decorative background floating hourglasses */}
+      <span
+        className="absolute top-6 left-8 text-sm opacity-25 hourglass-float pointer-events-none select-none"
+        style={{ animationDelay: "0s" }}
+        aria-hidden="true"
+      >
+        ⌛
+      </span>
+      <span
+        className="absolute top-10 right-10 text-base opacity-20 hourglass-float pointer-events-none select-none"
+        style={{ animationDelay: "1.2s" }}
+        aria-hidden="true"
+      >
+        ⌛
+      </span>
+      <span
+        className="absolute top-1/2 -translate-y-1/2 left-6 text-xs opacity-20 hourglass-float pointer-events-none select-none hidden sm:block"
+        style={{ animationDelay: "2.4s" }}
+        aria-hidden="true"
+      >
+        ⌛
+      </span>
+      <span
+        className="absolute top-1/2 -translate-y-1/2 right-6 text-sm opacity-20 hourglass-float pointer-events-none select-none hidden sm:block"
+        style={{ animationDelay: "3.6s" }}
+        aria-hidden="true"
+      >
+        ⌛
+      </span>
+      <span
+        className="absolute bottom-8 left-12 text-base opacity-20 hourglass-float pointer-events-none select-none"
+        style={{ animationDelay: "0.8s" }}
+        aria-hidden="true"
+      >
+        ⌛
+      </span>
+      <span
+        className="absolute bottom-7 right-14 text-xs opacity-25 hourglass-float pointer-events-none select-none"
+        style={{ animationDelay: "2.0s" }}
+        aria-hidden="true"
+      >
+        ⌛
+      </span>
+
       <div className="relative z-10 max-w-2xl mx-auto">
         <h2 className="font-['Space_Grotesk'] font-bold text-3xl sm:text-4xl lg:text-[40px] tracking-tight text-[#f2f0e8]">
           Pakistan is heating up —{" "}

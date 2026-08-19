@@ -33,7 +33,7 @@ const sourcesData = [
 export default function SourcesSection() {
   return (
     <section className="pt-10 pb-[120px] px-6 max-w-[900px] mx-auto relative z-10" id="sources">
-      <div className="glass-panel rounded-3xl p-8 sm:p-10 border border-white/10 backdrop-blur-md">
+      <div className="glass-panel rounded-3xl p-8 sm:p-10 border border-white/10">
         <h3 className="font-['Space_Grotesk'] text-xl font-medium text-[#f2f0e8] mb-2">
           Where these numbers come from
         </h3>
