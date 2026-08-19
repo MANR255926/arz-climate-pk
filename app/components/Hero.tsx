@@ -2,6 +2,15 @@
 
 import React, { useState, useEffect } from "react";
 
+const previewLinks = [
+  { id: "floods", label: "Floods", icon: "🌊" },
+  { id: "heatwaves", label: "Heatwaves", icon: "🔥" },
+  { id: "glaciers", label: "Glaciers", icon: "🧊" },
+  { id: "crops", label: "Crops", icon: "🌾" },
+  { id: "solutions", label: "Solutions", icon: "💡" },
+  { id: "sources", label: "Sources", icon: "📊" },
+];
+
 export default function Hero() {
   const [val1, setVal1] = useState(0);
   const [val2, setVal2] = useState("0");
@@ -40,6 +49,14 @@ export default function Hero() {
     return () => clearTimeout(timer);
   }, []);
 
+  const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+    e.preventDefault();
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <section className="min-h-screen flex flex-col items-center justify-center relative text-center pt-36 pb-20 px-6 z-10">
       {/* Eyebrow */}
@@ -61,7 +78,7 @@ export default function Hero() {
       </p>
 
       {/* Stat Cards Row */}
-      <div className="flex flex-wrap gap-3.5 justify-center mt-16 animate-fade-up-4 w-full max-w-2xl">
+      <div className="flex flex-wrap gap-3.5 justify-center mt-14 animate-fade-up-4 w-full max-w-2xl">
         <div className="glass-panel rounded-2xl px-5 py-4 min-w-[150px] flex-1 sm:flex-initial text-left">
           <b className="block font-mono text-2xl sm:text-[26px] font-medium text-[#f2f0e8]">
             {val1}M
@@ -90,8 +107,28 @@ export default function Hero() {
         </div>
       </div>
 
+      {/* What's Ahead Preview Strip */}
+      <div className="mt-8 flex flex-col items-center gap-2.5 animate-fade-up-4 w-full max-w-2xl">
+        <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-[#6c766f]">
+          What&apos;s ahead
+        </span>
+        <div className="flex flex-wrap items-center justify-center gap-2">
+          {previewLinks.map((link) => (
+            <a
+              key={link.id}
+              href={`#${link.id}`}
+              onClick={(e) => scrollToSection(e, link.id)}
+              className="glass-panel rounded-full px-3.5 py-1.5 font-mono text-xs text-[#a9b3ac] hover:text-[#f2f0e8] hover:border-[#ff6a2b]/40 hover:bg-[#ff6a2b]/[0.08] transition-all cursor-pointer inline-flex items-center gap-1.5 focus:outline-none focus:ring-1 focus:ring-[#ff6a2b]"
+            >
+              <span className="text-[11px] opacity-80" aria-hidden="true">{link.icon}</span>
+              <span>{link.label}</span>
+            </a>
+          ))}
+        </div>
+      </div>
+
       {/* Scroll Cue */}
-      <div className="mt-16 font-mono text-[11px] text-[#6c766f] flex flex-col items-center gap-2 animate-fade-up-5">
+      <div className="mt-12 font-mono text-[11px] text-[#6c766f] flex flex-col items-center gap-2 animate-fade-up-5">
         <span>scroll</span>
         <div className="w-[1px] h-[34px] bg-gradient-to-b from-[#6c766f] to-transparent animate-drop" />
       </div>

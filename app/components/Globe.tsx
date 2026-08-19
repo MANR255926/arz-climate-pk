@@ -1,9 +1,10 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 export default function Globe() {
   const globeRef = useRef<SVGSVGElement | null>(null);
+  const [isDangerInView, setIsDangerInView] = useState(false);
 
   useEffect(() => {
     // Check if user prefers reduced motion
@@ -33,15 +34,39 @@ export default function Globe() {
 
     window.addEventListener("scroll", handleScroll, { passive: true });
 
+    // IntersectionObserver to tie globe crack intensity to Danger section view
+    const dangerEl = document.getElementById("danger");
+    let observer: IntersectionObserver | null = null;
+
+    if (dangerEl) {
+      observer = new IntersectionObserver(
+        (entries) => {
+          const entry = entries[0];
+          setIsDangerInView(entry.isIntersecting);
+        },
+        {
+          root: null,
+          rootMargin: "0px 0px -15% 0px",
+          threshold: [0, 0.1, 0.25],
+        }
+      );
+      observer.observe(dangerEl);
+    }
+
     return () => {
       window.removeEventListener("scroll", handleScroll);
+      if (observer) {
+        observer.disconnect();
+      }
     };
   }, []);
 
   return (
     <svg
       ref={globeRef}
-      className="bg-globe fixed -top-[4vh] left-1/2 w-[min(85vw,860px)] h-[min(85vw,860px)] z-0 opacity-85 pointer-events-none will-change-transform"
+      className={`bg-globe fixed -top-[4vh] left-1/2 w-[min(85vw,860px)] h-[min(85vw,860px)] z-0 opacity-85 pointer-events-none will-change-transform transition-[filter] duration-700 ${
+        isDangerInView ? "globe-danger-active" : ""
+      }`}
       style={{ transform: "translate(-50%, 0px)" }}
       viewBox="0 0 400 400"
       xmlns="http://www.w3.org/2000/svg"

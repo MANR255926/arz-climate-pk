@@ -57,14 +57,29 @@
 
 .crack {
   filter: drop-shadow(0 0 3px rgba(255, 106, 43, 0.9)) drop-shadow(0 0 9px rgba(255, 106, 43, 0.55));
+  transition: filter 0.8s ease;
 }
 
 .crack-pulse {
   animation: crackPulse 3.4s ease-in-out infinite;
+  transition: opacity 0.8s ease;
 }
 
 @keyframes crackPulse {
   0%, 100% { opacity: 0.85; }
+  50% { opacity: 1; }
+}
+
+.globe-danger-active .crack {
+  filter: drop-shadow(0 0 6px rgba(255, 106, 43, 1)) drop-shadow(0 0 16px rgba(255, 106, 43, 0.85)) drop-shadow(0 0 28px rgba(255, 106, 43, 0.45));
+}
+
+.globe-danger-active .crack-pulse {
+  animation: crackPulseIntense 2.2s ease-in-out infinite;
+}
+
+@keyframes crackPulseIntense {
+  0%, 100% { opacity: 0.95; }
   50% { opacity: 1; }
 }
 
@@ -147,6 +162,7 @@
   .globe-spin,
   .clouds-spin,
   .crack-pulse,
+  .crack,
   .ember,
   .animate-drop,
   .animate-float-glow,
@@ -158,5 +174,6 @@
     animation: none !important;
     opacity: 1 !important;
     transform: none !important;
+    transition: none !important;
   }
 }

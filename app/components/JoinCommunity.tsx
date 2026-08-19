@@ -85,7 +85,10 @@ export default function JoinCommunity() {
 
       <div className="relative z-10 max-w-2xl mx-auto">
         <h2 className="font-['Space_Grotesk'] font-bold text-3xl sm:text-4xl lg:text-[40px] tracking-tight text-[#f2f0e8]">
-          You didn&apos;t cause this. You can still respond to it.
+          Pakistan is heating up —{" "}
+          <span className="text-[#ff6a2b]">
+            we don&apos;t have to keep paying for it alone.
+          </span>
         </h2>
         <p className="text-[#a9b3ac] mt-3.5 mb-8 max-w-md mx-auto text-sm sm:text-base leading-relaxed">
           Join a growing community of Pakistanis tracking, learning, and acting
